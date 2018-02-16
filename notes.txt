@@ -1,0 +1,18 @@
+FRAMESHIFT
+"CELL" class that serves as the 'home' class
+	can store the nucleotide sequence, amino acid sequence, etc
+map all amino acids to their symbols (if they have symbols) -- needs to be type char
+
+ribosome:
+scan until reading frame is found, save index
+
+## new plan!
+Scan function; give it the start codon and STOP codons
+and get those indices
+can then just translate from
+startIndex + 3 (inclusive) -> stopIndex (not inclusive)
+
+actually everything is relative to START
+
+COULD implement ICodonSet where there's an abstract AminoAcid class. Allows for custom amino acids and sets of codons corresponding to them. Would need to refactor some methods around amino acids.
+
