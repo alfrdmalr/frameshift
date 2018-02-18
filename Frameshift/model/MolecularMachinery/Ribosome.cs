@@ -73,8 +73,8 @@ namespace Frameshift
         }
 
         /// <summary>
-        /// Translates the given sequence "blindly," i.e. without searching for start and
-        /// stop codons. Any remainder nucleotides will be truncated and not reflected in the resultant
+        /// Translates the given sequence "blindly," i.e. without searching for start and 
+        /// stop codons. Any remainder nucleotides will be truncated and not reflected in the resultant 
         /// polypeptide.
         /// </summary>
         /// <param name="seq">Sequence to blindly translate.</param>
@@ -135,7 +135,7 @@ namespace Frameshift
         private List<AACodon> CreateReadingFrame(Nucleobase[] seq, int startIndex, int stopIndex)
         {
             if (stopIndex < startIndex + this.codonLength) {
-                throw new ArgumentException("stop index must be at least " + this.codonLength +
+                throw new ArgumentException("stop index must be at least " + this.codonLength + 
                     "greater than start index.");
             }
             int rangeLength = stopIndex - startIndex;

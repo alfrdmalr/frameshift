@@ -65,11 +65,11 @@
     <Compile Include="model\AminoAcids\AminoAcid.cs" />
     <Compile Include="model\AminoAcids\AACodon.cs" />
     <Compile Include="model\NucleicAcids\SequenceType.cs" />
-    <Compile Include="model\Cells\Polymerase.cs" />
+    <Compile Include="model\MolecularMachinery\Polymerase.cs" />
     <Compile Include="model\NucleicAcids\Nucleobases.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="model\Cells\Ribosome.cs" />
+    <Compile Include="model\MolecularMachinery\Ribosome.cs" />
     <Compile Include="model\AminoAcids\IAAFactory.cs" />
     <Compile Include="model\AminoAcids\IAminoAcid.cs" />
   </ItemGroup>
