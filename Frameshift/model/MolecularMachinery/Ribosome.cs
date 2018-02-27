@@ -42,14 +42,34 @@ namespace Frameshift
         /// </summary>
         public List<IAminoAcid> Translate(Nucleobase[] seq)
         {
-            var start = Scan(seq, startCodon, 0);
-            var stop = Scan(seq, stopCodons, start + this.codonLength, this.codonLength);
-            var rf = CreateReadingFrame(seq, start, stop);
-            foreach (AACodon c in rf)
+            Boolean keepTranslating = true;
+            List<IAminoAcid> protein = new List<IAminoAcid>();
+            int start = 0;
+            int stop = 0;
+            while (keepTranslating)
             {
-                Console.WriteLine(c.ToString());
+                try
+                {
+                    start = Scan(seq, startCodon, stop);
+                    stop = Scan(seq, stopCodons, start + this.codonLength, this.codonLength);
+                }
+                catch (CodonNotFoundException)
+                {
+                    keepTranslating = false;
+                    break;
+                }
+
+                var rf = CreateReadingFrame(seq, start, stop);
+                foreach (AACodon c in rf)
+                {
+                    Console.WriteLine(c.ToString());
+                }
+
+                List<IAminoAcid> polypeptide =  TranslateSubSequence(rf);
+                protein.AddRange(polypeptide);
             }
-            return TranslateSubSequence(rf);
+
+            return protein;
         }
 
         /// <summary>

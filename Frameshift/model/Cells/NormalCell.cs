@@ -6,9 +6,13 @@ using System.Threading.Tasks;
 
 namespace Frameshift
 {
+    /// <summary>
+    /// Represents a 'normal' cell, as in a human or bird or something.
+    /// Uses the standard conserved set of amino acids.
+    /// </summary>
     public class NormalCell : ICell
     {
-        private Polymerase pol; //technically unecessary since it's static but hey
+        private Polymerase pol; //technically unecessary since it's static currently but hey
         private Ribosome rib;
         private Nucleobase[] rna;
         private List<IAminoAcid> pro;
@@ -22,15 +26,21 @@ namespace Frameshift
                 AACodon.UAA,
                 AACodon.UAG
             };
-            // these lines are commented out because of a change in the ribosome, 
-            //TODO
+
             this.rib = new Ribosome(AACodon.AUG, stops, new AAFactory(), 3);
             this.rna = FrameshiftUtil.GenerateRNASequence(sequenceLength);
-            this.pro = this.rib.Translate(this.rna);
+            //this.pro = this.rib.Translate(this.rna); 
+            //commented out due to singleton implementation
         }
 
         public List<IAminoAcid> GetAminoAcids()
         {
+            // faux-singleton
+            if (this.pro == null)
+            {
+                this.pro = this.rib.Translate(this.rna);
+            }
+
             return this.pro;
         }
 
