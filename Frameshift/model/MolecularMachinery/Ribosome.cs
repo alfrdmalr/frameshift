@@ -60,15 +60,9 @@ namespace Frameshift
                 }
 
                 var rf = CreateReadingFrame(seq, start, stop);
-                foreach (AACodon c in rf)
-                {
-                    Console.WriteLine(c.ToString());
-                }
-
                 List<IAminoAcid> polypeptide =  TranslateSubSequence(rf);
                 protein.AddRange(polypeptide);
             }
-
             return protein;
         }
 
@@ -79,7 +73,7 @@ namespace Frameshift
         /// </summary>
         /// <param name="seq">Sequence to blindly translate.</param>
         /// <returns>Returns a polypeptide via a list of amino acids</returns>
-        public List<IAminoAcid> BlindTranslate(Nucleobase[] seq)
+        public List<IAminoAcid> BlindTranslate(Nucleobase[] seq, int startIndex)
         {
             throw new NotImplementedException();
 

@@ -19,7 +19,9 @@ namespace Frameshift
 
             while (length < 1)
             {
-                Console.WriteLine("Enter the length of the sequence you wish to generate.");
+                Console.WriteLine("Welcome to FRAMESHIFT!\n" +
+                    "Enter the length you want for the cell's DNA sequence.\n" + 
+                    "This seems to work best between 100 and 1000 base pairs, though it doesn't have to be.");
                 var l = Console.ReadLine();
                 int.TryParse(l, out length);
             }
@@ -27,16 +29,6 @@ namespace Frameshift
             ICell humanCell = new NormalCell(length);
             IFrameshiftController con = new ConsoleController(humanCell);
             con.RunSimulation();
-
-            /*
-            Console.WriteLine("\nResultant amino acid sequence:");
-            foreach (IAminoAcid aa in protein)
-            {
-                Console.Write(aa.GetShortName() + ".");
-            }
-            */
-
-            //Console.ReadLine();
         }
 
     }

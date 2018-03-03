@@ -27,7 +27,8 @@ namespace Frameshift.controller
         {
             Boolean simulate = true;
 
-            Console.WriteLine("Welcome to FRAMESHIFT\ntype \'help\' for a list of commands");
+            Console.WriteLine("Cell synthesized succesfully!\n" + 
+                "type \'help\' for a list of commands");
 
             // main loop
             while (simulate)
