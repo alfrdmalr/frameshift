@@ -58,14 +58,14 @@ namespace Frameshift
                     keepTranslating = false;
                     break;
                 }
-
-                var rf = CreateReadingFrame(seq, start, stop);
-                foreach (AACodon c in rf)
+                catch (ArgumentException)
                 {
-                    Console.WriteLine(c.ToString());
+                    keepTranslating = false;
+                    break;
                 }
 
-                List<IAminoAcid> polypeptide =  TranslateSubSequence(rf);
+                var rf = CreateReadingFrame(seq, start, stop);
+                List<IAminoAcid> polypeptide =  TranslateReadingFrame(rf);
                 protein.AddRange(polypeptide);
             }
 
@@ -73,17 +73,20 @@ namespace Frameshift
         }
 
         /// <summary>
-        /// Translates the given sequence "blindly," i.e. without searching for start and 
-        /// stop codons. Any remainder nucleotides will be truncated and not reflected in the resultant 
+        /// Translates the given sequence "blindly," i.e. without searching for start and
+        /// stop codons. Any remainder nucleotides will be truncated and not reflected in the resultant
         /// polypeptide.
         /// </summary>
         /// <param name="seq">Sequence to blindly translate.</param>
         /// <returns>Returns a polypeptide via a list of amino acids</returns>
         public List<IAminoAcid> BlindTranslate(Nucleobase[] seq)
         {
-            throw new NotImplementedException();
-
+            int stopIndex = seq.Length - (seq.Length % this.codonLength) - this.codonLength;
+            var rf = CreateReadingFrame(seq, 0, stopIndex);
+            var polypeptide = TranslateReadingFrame(rf);
+            return polypeptide;
         }
+
 
         /// <summary>
         /// Scans the given sequence for a codon in the provided list, returning the
@@ -135,13 +138,14 @@ namespace Frameshift
         private List<AACodon> CreateReadingFrame(Nucleobase[] seq, int startIndex, int stopIndex)
         {
             if (stopIndex < startIndex + this.codonLength) {
-                throw new ArgumentException("stop index must be at least " + this.codonLength + 
+                throw new ArgumentException("stop index must be at least " + this.codonLength +
                     "greater than start index.");
             }
             int rangeLength = stopIndex - startIndex;
             if (rangeLength % 3 != 0) {
                 throw new ArgumentException("the length of the reading frame must"
-                + "be a multiple of " + this.codonLength);
+                + "be a multiple of " + this.codonLength + " -- in other words, " +
+                "the reading frame must contain a whole number of codons.");
             }
 
             List<AACodon> triplets = new List<AACodon>();
@@ -157,12 +161,11 @@ namespace Frameshift
 
         /// <summary>
         /// Translates the given sequence of AACodons into the corresponding
-        /// amino acids. Terminates when a stop codon is reached, but not before adding
-        /// the corresponding AA (probably a placeholder) to the list.
+        /// amino acids.
         /// </summary>
         /// <param name="seq">sequence of codon triplets</param>
         /// <returns>Returns amino acid sequence</returns>
-        private List<IAminoAcid> TranslateSubSequence(List<AACodon> seq)
+        private List<IAminoAcid> TranslateReadingFrame(List<AACodon> seq)
         {
             List<IAminoAcid> polypeptide = new List<IAminoAcid>();
             //use the factory to determine which amino acids get made.
@@ -170,10 +173,6 @@ namespace Frameshift
             foreach (AACodon c in seq)
             {
                 polypeptide.Add(factory.BuildAA(c));
-                if (stopCodons.Contains(c))
-                {
-                    break;
-                }
             }
             return polypeptide;
         }

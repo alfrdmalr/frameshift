@@ -15,28 +15,11 @@ namespace Frameshift
         static void Main(string[] args)
         {
 
-            int length = 0;
-
-            while (length < 1)
-            {
-                Console.WriteLine("Enter the length of the sequence you wish to generate.");
-                var l = Console.ReadLine();
-                int.TryParse(l, out length);
-            }
+           
             
-            ICell humanCell = new NormalCell(length);
+            ICell humanCell = new NormalCell();
             IFrameshiftController con = new ConsoleController(humanCell);
             con.RunSimulation();
-
-            /*
-            Console.WriteLine("\nResultant amino acid sequence:");
-            foreach (IAminoAcid aa in protein)
-            {
-                Console.Write(aa.GetShortName() + ".");
-            }
-            */
-
-            //Console.ReadLine();
         }
 
     }
