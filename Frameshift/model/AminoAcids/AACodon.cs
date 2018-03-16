@@ -35,8 +35,8 @@ namespace Frameshift
         {
             if (start > end || start > seq.Length || start < 0 || end > seq.Length || end < 0)
             {
-                throw new ArgumentException(String.Format("Illegal indices. Start: {0}, End: {0}," +
-                    " Sequence Length: {0}", start, end, seq.Length));
+                throw new ArgumentException(String.Format("Illegal indices. Start: {0}, End: {1}," +
+                    " Sequence Length: {2}", start, end, seq.Length));
             } else if (end - start != CODON_LENGTH)
             {
                 throw new ArgumentException("No codon of length " + seq.Length + " exist; Nucleobase" +

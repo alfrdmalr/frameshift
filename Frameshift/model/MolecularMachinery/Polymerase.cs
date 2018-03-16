@@ -32,5 +32,24 @@ namespace Frameshift
             }
             return r;
         }
+
+
+        //TODO generalize these two methods
+        public static Nucleobase[] ReverseTranscribe(Nucleobase[] r)
+        {
+           Nucleobase[] d = new Nucleobase[r.Length];
+           for (int i = 0; i < r.Length; i++) 
+           {
+                if (r[i].Equals(Nucleobase.U))
+                {
+                    d[i] = Nucleobase.T;
+                }
+                else
+                {
+                    d[i] = r[i];
+                }
+           }
+            return d;
+        }
     }
 }
