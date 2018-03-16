@@ -66,9 +66,11 @@ namespace Frameshift
 
                 var rf = CreateReadingFrame(seq, start, stop);
                 List<IAminoAcid> polypeptide =  TranslateReadingFrame(rf);
+
+                var rf = CreateReadingFrame(seq, start, stop);
+                List<IAminoAcid> polypeptide =  TranslateSubSequence(rf);
                 protein.AddRange(polypeptide);
             }
-
             return protein;
         }
 
@@ -79,7 +81,7 @@ namespace Frameshift
         /// </summary>
         /// <param name="seq">Sequence to blindly translate.</param>
         /// <returns>Returns a polypeptide via a list of amino acids</returns>
-        public List<IAminoAcid> BlindTranslate(Nucleobase[] seq)
+        public List<IAminoAcid> BlindTranslate(Nucleobase[] seq, int startIndex)
         {
             int stopIndex = seq.Length - (seq.Length % this.codonLength) - this.codonLength;
             var rf = CreateReadingFrame(seq, 0, stopIndex);

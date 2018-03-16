@@ -29,6 +29,9 @@ namespace Frameshift.controller
             Console.WriteLine("Welcome to FRAMESHIFT!");
             
             Console.WriteLine("For now, your cell is probably pretty boring. Try changing the DNA sequence! \n" + 
+
+            Console.WriteLine("Cell synthesized succesfully!\n" + 
+
                 "type \'help\' for a list of commands");
 
             // main loop
