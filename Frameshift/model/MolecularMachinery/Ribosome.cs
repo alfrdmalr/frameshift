@@ -66,9 +66,7 @@ namespace Frameshift
 
                 var rf = CreateReadingFrame(seq, start, stop);
                 List<IAminoAcid> polypeptide =  TranslateReadingFrame(rf);
-
-                var rf = CreateReadingFrame(seq, start, stop);
-                List<IAminoAcid> polypeptide =  TranslateSubSequence(rf);
+                
                 protein.AddRange(polypeptide);
             }
             return protein;
