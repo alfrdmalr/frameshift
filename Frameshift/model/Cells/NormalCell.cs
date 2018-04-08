@@ -66,7 +66,7 @@ namespace Frameshift
 
         public List<IAminoAcid> SimpleTranslate()
         {
-            return this.rib.BlindTranslate(this.rna);
+            return this.rib.BlindTranslate(this.rna, 0);
         }
 
         public Nucleobase[] GetDNA()
